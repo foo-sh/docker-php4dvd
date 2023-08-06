@@ -32,7 +32,7 @@ if [ "${PHP4DVD_DB_PASS:-}" != "" ]; then
 fi
 
 if [ "${PHP4DVD_BASEURL:-}" != "" ]; then
-    sed -i -e "s%^\(\$settings\[\"url\"\]\[\"base\"\] = \).*%\1\"${PHP4DVD_BASEURL};\"%" /var/www/html/config/config.php
+    sed -i -e "s%^\(\$settings\[\"url\"\]\[\"base\"\] = \).*%\1\"${PHP4DVD_BASEURL}\";%" /var/www/html/config/config.php
     unset PHP4DVD_BASEURL
 fi
 
