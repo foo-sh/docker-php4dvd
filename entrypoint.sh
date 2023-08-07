@@ -18,6 +18,7 @@ defined('DIRECTACCESS') OR exit('No direct script access allowed');
 \$settings["db"]["user"] = "${PHP4DVD_DB_USER}";
 \$settings["db"]["pass"] = "${PHP4DVD_DB_PASS}";
 \$settings["user"]["guestview"] = ${PHP4DVD_USER_GUESTVIEW};
+\$settings["imdbphp"]["language"] = "en-US";
 EOF
 chown root:www-data /var/www/html/config/config.php
 chmod 640 /var/www/html/config/config.php
