@@ -17,7 +17,8 @@ RUN set -eux ; \
 RUN set -eux ; \
     curl -sfL "https://github.com/jreklund/php4dvd/archive/refs/tags/v${VERSION}.tar.gz" | tar zxvf - --strip-components=1 ; \
     chmod 770 cache compiled movies movies/covers ; \
-    chown www-data:www-data cache compiled movies movies/covers
+    chown www-data:www-data cache compiled movies movies/covers ; \
+    rm -rf install
 
 COPY entrypoint.sh /usr/local/sbin
 ENTRYPOINT ["/usr/local/sbin/entrypoint.sh"]

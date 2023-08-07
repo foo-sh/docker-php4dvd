@@ -2,38 +2,24 @@
 
 set -eu
 
-cp /var/www/html/config/config.default.php /var/www/html/config/config.php
-chmod 640 /var/www/html/config/config.php
+: "${PHP4DVD_DB_HOST:=localhost}"
+: "${PHP4DVD_DB_PORT:=3306}"
+: "${PHP4DVD_DB_NAME:=php4dvd}"
+: "${PHP4DVD_DB_USER:=php4dvd}"
+: "${PHP4DVD_DB_PASS:=}"
+: "${PHP4DVD_USER_GUESTVIEW:=false}"
+
+cat <<EOF > /var/www/html/config/config.php
+<?php
+defined('DIRECTACCESS') OR exit('No direct script access allowed');
+\$settings["db"]["host"] = "${PHP4DVD_DB_HOST}";
+\$settings["db"]["port"] = "${PHP4DVD_DB_PORT}";
+\$settings["db"]["name"] = "${PHP4DVD_DB_NAME}";
+\$settings["db"]["user"] = "${PHP4DVD_DB_USER}";
+\$settings["db"]["pass"] = "${PHP4DVD_DB_PASS}";
+\$settings["user"]["guestview"] = ${PHP4DVD_USER_GUESTVIEW}";
+EOF
 chown root:www-data /var/www/html/config/config.php
-
-if [ "${PHP4DVD_DB_HOST:-}" != "" ]; then
-    sed -i -e "s%^\(\$settings\[\"db\"\]\[\"host\"\] = \).*%\1\"${PHP4DVD_DB_HOST}\";%" /var/www/html/config/config.php
-    unset PHP4DVD_DB_HOST
-fi
-
-if [ "${PHP4DVD_DB_PORT:-}" != "" ]; then
-    sed -i -e "s%^\(\$settings\[\"db\"\]\[\"port\"\] = \).*%\1\"${PHP4DVD_DB_PORT}\";%" /var/www/html/config/config.php
-    unset PHP4DVD_DB_PORT
-fi
-
-if [ "${PHP4DVD_DB_NAME:-}" != "" ]; then
-    sed -i -e "s%^\(\$settings\[\"db\"\]\[\"name\"\] = \).*%\1\"${PHP4DVD_DB_NAME}\";%" /var/www/html/config/config.php
-    unset PHP4DVD_DB_NAME
-fi
-
-if [ "${PHP4DVD_DB_USER:-}" != "" ]; then
-    sed -i -e "s%^\(\$settings\[\"db\"\]\[\"port\"\] = \).*%\1\"${PHP4DVD_DB_USER}\";%" /var/www/html/config/config.php
-    unset PHP4DVD_DB_USER
-fi
-
-if [ "${PHP4DVD_DB_PASS:-}" != "" ]; then
-    sed -i -e "s%^\(\$settings\[\"db\"\]\[\"port\"\] = \).*%\1\"${PHP4DVD_DB_PASS}\";%" /var/www/html/config/config.php
-    unset PHP4DVD_DB_PASS
-fi
-
-if [ "${PHP4DVD_BASEURL:-}" != "" ]; then
-    sed -i -e "s%^\(\$settings\[\"url\"\]\[\"base\"\] = \).*%\1\"${PHP4DVD_BASEURL}\";%" /var/www/html/config/config.php
-    unset PHP4DVD_BASEURL
-fi
+chmod 640 /var/www/html/config/config.php
 
 exec /usr/local/bin/docker-php-entrypoint "$@"
