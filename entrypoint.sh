@@ -20,6 +20,7 @@ defined('DIRECTACCESS') OR exit('No direct script access allowed');
 \$settings["db"]["pass"] = "${PHP4DVD_DB_PASS}";
 \$settings["youtube_key"] = "${PHP4DVD_YOUTUBE_KEY}";
 \$settings["user"]["guestview"] = ${PHP4DVD_USER_GUESTVIEW};
+\$settings["results_per_page"] = 50;
 \$settings["imdbphp"]["language"] = "en-US";
 EOF
 chown root:www-data /var/www/html/config/config.php
