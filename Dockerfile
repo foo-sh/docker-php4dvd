@@ -20,6 +20,9 @@ RUN set -eux ; \
     chown www-data:www-data cache compiled movies movies/covers ; \
     rm -rf install
 
+COPY skin-foosh.css skin-foosh.min.css /var/www/html/tpl/default/css/skins/
+COPY logo-foosh.png /var/www/html/tpl/default/images/
+
 COPY entrypoint.sh /usr/local/sbin
 ENTRYPOINT ["/usr/local/sbin/entrypoint.sh"]
 CMD ["apache2-foreground"]
