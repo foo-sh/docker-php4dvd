@@ -7,6 +7,7 @@ set -eu
 : "${PHP4DVD_DB_NAME:=${PHP4DVD_DB_NAME:-php4dvd}}"
 : "${PHP4DVD_DB_USER:=${PHP4DVD_DB_USER:-php4dvd}}"
 : "${PHP4DVD_DB_PASS:=${PHP4DVD_DB_PASS:-}}"
+: "${PHP4DVD_YOUTUBE_KEY:=${PHP4DVD_YOUTUBE_KEY:-}}"
 : "${PHP4DVD_USER_GUESTVIEW:=${PHP4DVD_USER_GUESTVIEW:-false}}"
 
 cat <<EOF > /var/www/html/config/config.php
@@ -17,6 +18,7 @@ defined('DIRECTACCESS') OR exit('No direct script access allowed');
 \$settings["db"]["name"] = "${PHP4DVD_DB_NAME}";
 \$settings["db"]["user"] = "${PHP4DVD_DB_USER}";
 \$settings["db"]["pass"] = "${PHP4DVD_DB_PASS}";
+\$settings["youtube_key"] = "${PHP4DVD_YOUTUBE_KEY}";
 \$settings["user"]["guestview"] = ${PHP4DVD_USER_GUESTVIEW};
 \$settings["imdbphp"]["language"] = "en-US";
 EOF
