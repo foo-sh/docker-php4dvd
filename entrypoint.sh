@@ -27,7 +27,4 @@ EOF
 chown root:www-data /var/www/html/config/config.php
 chmod 640 /var/www/html/config/config.php
 
-chown root:www-data /var/www/html/movies
-chmod 770 /var/www/html/movies
-
 exec /usr/local/bin/docker-php-entrypoint "$@"
