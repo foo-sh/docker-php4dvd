@@ -1,0 +1,46 @@
+--- common.inc.php.orig	2023-08-14 16:49:52.064423051 +0000
++++ common.inc.php	2023-08-14 16:50:33.635497024 +0000
+@@ -53,32 +53,16 @@
+ 	}
+ }
+ 
+-// Base url
+-$protocol = "http";
+-if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS']) {
+-	$protocol = "https";
+-}
+-if(isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
+-	$protocol = "https";
+-}
+-
+-// Force the use of HTTPS
+-if(
+-	isset($settings["url"]["HTTPS"]) && $settings["url"]["HTTPS"] && $protocol !== 'https'
+-) {
+-	header('Location: https://'. $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"], true, 301);
+-	exit();
+-}
+ 
+ // Load smarty template parser
+ require_once($loc . "lib/Website.class.php");
+ $Website = new Website($settings);
+ 
+-$baseurl = $protocol . "://" . $_SERVER["HTTP_HOST"];
++$baseurl = "/";
+ $Website->assign("baseurl", $baseurl);
+ 
+ // Current URL
+-$currentUrl = $baseurl . $_SERVER["REQUEST_URI"];
++$currentUrl = $baseurl . ltrim($_SERVER["REQUEST_URI"], "/");
+ $Website->assign("currentUrl", $currentUrl);
+ 
+ // Webroot
+@@ -86,7 +70,7 @@
+ if(strlen($basepath) > 0 && !preg_match("/\/$/", $basepath)) {
+ 	$basepath .= "/";
+ }
+-$webroot = $baseurl . "/" . $basepath;
++$webroot = $baseurl . ltrim($basepath, "/");
+ $Website->assign("webroot", $webroot);
+ 
+ // Include util functions
