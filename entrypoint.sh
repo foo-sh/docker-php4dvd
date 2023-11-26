@@ -13,6 +13,11 @@ set -eu
 : "${PHP4DVD_YOUTUBE_KEY:=${PHP4DVD_YOUTUBE_KEY:-}}"
 : "${PHP4DVD_USER_GUESTVIEW:=${PHP4DVD_USER_GUESTVIEW:-false}}"
 
+if [ -n "$PHP4DVD_DB_KEY" ]; then
+    install -m 640 -g www-data "$PHP4DVD_DB_KEY" "/etc/ssl/php4dvd.key"
+    PHP4DVD_DB_KEY="/etc/ssl/php4dvd.key"
+fi
+
 cat <<EOF > /var/www/html/config/config.php
 <?php
 defined('DIRECTACCESS') OR exit('No direct script access allowed');
