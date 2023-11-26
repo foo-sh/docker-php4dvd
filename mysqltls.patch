@@ -1,0 +1,23 @@
+--- lib/Database.class.php.orig	2023-11-26 16:45:11.393937524 +0000
++++ lib/Database.class.php	2023-11-26 16:45:02.636892073 +0000
+@@ -12,11 +12,19 @@
+ 	 */
+ 	public function __construct($settings) {
+ 		if(!isset(self::$database)) {
++			$dboptions = array(
++				\PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => true,
++				\PDO::MYSQL_ATTR_SSL_CA => $settings["db"]["cacert"],
++				\PDO::MYSQL_ATTR_SSL_KEY => $settings["db"]["key"],
++      				\PDO::MYSQL_ATTR_SSL_CERT => $settings["db"]["cert"]
++			);
+ 			self::$database = R::setup(
+ 				"mysql:host=" . $settings["host"] . ";port=" . $settings["port"] . ";dbname=" . $settings["name"],
+ 				$settings["user"],
+ 				$settings["pass"],
+-				true
++				true,
++				false,
++				$dboptions
+ 			);
+ 
+ 			// Debug

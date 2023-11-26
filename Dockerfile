@@ -23,9 +23,10 @@ RUN set -eux ; \
 COPY skin-foosh.css skin-foosh.min.css /var/www/html/tpl/default/css/skins/
 COPY logo-foosh.png /var/www/html/tpl/default/images/
 
-COPY php4dvd.patch /usr/local/src
+COPY baseurl.patch mysqltls.patch /usr/local/src
 RUN set -eux ; \
-    patch -p0 < /usr/local/src/php4dvd.patch
+    patch -p0 < /usr/local/src/baseurl.patch ; \
+    patch -p0 < /usr/local/src/mysqltls.patch
 
 COPY entrypoint.sh /usr/local/sbin
 ENTRYPOINT ["/usr/local/sbin/entrypoint.sh"]
