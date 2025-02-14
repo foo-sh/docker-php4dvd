@@ -1,4 +1,4 @@
-FROM php:8.4.2-apache
+FROM php:8.4.4-apache
 
 ARG VERSION="3.11.4"
 
