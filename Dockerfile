@@ -1,6 +1,6 @@
 FROM php:8.5.1-apache
 
-ARG VERSION="3.11.4"
+ARG VERSION="3.11.5"
 
 RUN set -eux ; \
     apt-get update ; \
